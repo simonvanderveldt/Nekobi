@@ -19,8 +19,12 @@ plugins: dgl
 	$(MAKE) all -C plugins/Nekobi
 
 ifneq ($(CROSS_COMPILING),true)
+ifeq ($(BUILD_LV2),true)
 gen: plugins dpf/utils/lv2_ttl_generator
 	@$(CURDIR)/dpf/utils/generate-ttl.sh
+else
+gen:
+endif
 ifeq ($(MACOS),true)
 	@$(CURDIR)/dpf/utils/generate-vst-bundles.sh
 endif
